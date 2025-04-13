@@ -10,7 +10,7 @@ sales = {}
 def add_movie(title, genre, release_date, actors, description, price):
     # Generate a unique random movie number
     while True:
-        movie_number = random.randint(1000, 9999)
+        movie_number = (f"Movie number: {random.randint(1000, 9999)}")
         if movie_number not in movies:
             break
 
@@ -23,6 +23,44 @@ def add_movie(title, genre, release_date, actors, description, price):
         'price': price
     }
     print(f'Movie "{title}" added successfully with Movie Number: {movie_number}!')
+
+def search_and_display_movie(movie_number=None, title=None, actors=None, genre=None, release_date=None):
+    # Search by movie number
+    if movie_number:
+        if movie_number in movies:
+            print("\n--- Movie Found ---")
+            print_movie_details(movie_number)
+        else:
+            print("Movie not found!")
+        return
+
+    # Search by other criteria
+    found_movies = []
+    for m_number, movie in movies.items():
+        if (title and title.lower() in movie['title'].lower()) or \
+           (actors and any(actor.lower() in [a.lower() for a in movie['actors']] for actor in actors.split(", "))) or \
+           (genre and genre.lower() == movie['genre'].lower()) or \
+           (release_date and release_date == movie['release_date']):
+            found_movies.append(m_number)
+
+    if found_movies:
+        print("\n--- Movies Found ---")
+        for m_number in found_movies:
+            print_movie_details(m_number)
+    else:
+        print("No movies found matching the criteria.")
+        
+def print_movie_details(movie_number):
+    """Helper function to print movie details."""
+    movie = movies[movie_number]
+    print(f"Movie Number: {movie_number}")
+    print(f"Title: {movie['title']}")
+    print(f"Genre: {movie['genre']}")
+    print(f"Release Date: {movie['release_date']}")
+    print(f"Actors: {', '.join(movie['actors'])}")
+    print(f"Description: {movie['description']}")
+    print(f"Price: ${movie['price']:.2f}")
+    print("--------------------")
 
 # Function to sell a movie
 def sale_movie(movie_number, copies_sold, buyer_name, buyer_gender, buyer_contact):
@@ -100,8 +138,9 @@ def main_menu():
     while True:
         print("\n--- Movie Library System ---")
         print("1. Add Movie")
-        print("2. Sell Movie")
-        print("3. Exit")
+        print("2. Search Movie")
+        print("3. Sell Movie")
+        print("4. Exit")
 
         choice = input("Select an option: ")
 
@@ -116,8 +155,29 @@ def main_menu():
                 add_movie(title, genre, release_date, actors, description, price)
             except ValueError:
                 print("Invalid input! Please try again.")
-
+                
         elif choice == '2':
+            print("\n--- Search Movie ---")
+            search_type = input("Search by (1) Movie Number, (2) Title, (3) Actors, (4) Genre, (5) Release Date: ")
+            if search_type == '1':
+                movie_number = input("Enter Movie Number: ")
+                search_and_display_movie(movie_number=movie_number)
+            elif search_type == '2':
+                title = input("Enter Title: ")
+                search_and_display_movie(title=title)
+            elif search_type == '3':
+                actors = input("Enter Actors (comma separated): ")
+                search_and_display_movie(actors=actors)
+            elif search_type == '4':
+                genre = input("Enter Genre: ")
+                search_and_display_movie(genre=genre)
+            elif search_type == '5':
+                release_date = input("Enter Release Date (YYYY-MM-DD): ")
+                search_and_display_movie(release_date=release_date)
+            else:
+                print("Invalid search option!")
+
+        elif choice == '3':
             try:
                 movie_number = int(input("Enter Movie Number: "))
                 copies_sold = int(input("Enter Copies Sold: "))
@@ -128,7 +188,7 @@ def main_menu():
             except ValueError:
                 print("Invalid input! Please try again.")
 
-        elif choice == '3':
+        elif choice == '4':
             confirm = input("Are you sure you want to exit? (yes/no): ").lower()
             if confirm == 'yes':
                 print("THANK YOU FOR WORKING WITH US.")
