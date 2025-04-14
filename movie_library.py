@@ -34,7 +34,7 @@ def search_and_display_movie(movie_number=None, title=None, actors=None, genre=N
             print("Movie not found!")
         return
 
-    # Search by other criteria
+    # Search by other criteriaif
     found_movies = []
     for m_number, movie in movies.items():
         if (title and title.lower() in movie['title'].lower()) or \
@@ -65,8 +65,8 @@ def print_movie_details(movie_number):
 # Function to sell a movie
 def sale_movie(movie_number, copies_sold, buyer_name, buyer_gender, buyer_contact):
     # Check if the movie exists
-    if movie_number not in movies:
-        print("Movie not found!")
+    if movie_number  in movies:
+        print("Movie found!")
         return
 
     # Check if the buyer already exists, otherwise register them
@@ -139,7 +139,7 @@ def main_menu():
         print("\n--- Movie Library System ---")
         print("1. Add Movie")
         print("2. Search Movie")
-        print("3. Sell Movie")
+        print("3. Buy Movie")
         print("4. Exit")
 
         choice = input("Select an option: ")
