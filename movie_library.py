@@ -23,26 +23,26 @@ def add_movie(title, genre, release_date, actors, description, price):
         'price': price
     }
     print(f'Movie "{title}" added successfully with Movie Number: {movie_number}!')
-
+    
 def search_and_display_movie(movie_number=None, title=None, actors=None, genre=None, release_date=None):
     # Search by movie number
     if movie_number:
-        if movie_number in movies:
-            print("\n--- Movie Found ---")
-            print_movie_details(movie_number)
-        else:
+       if movie_number in movies:
+           print("\n--- Movie Found ---")
+           print_movie_details(movie_number)
+       else:
             print("Movie not found!")
-        return
-
-    # Search by other criteriaif
+       return
+   
+# Search by other criteria
     found_movies = []
     for m_number, movie in movies.items():
         if (title and title.lower() in movie['title'].lower()) or \
            (actors and any(actor.lower() in [a.lower() for a in movie['actors']] for actor in actors.split(", "))) or \
            (genre and genre.lower() == movie['genre'].lower()) or \
            (release_date and release_date == movie['release_date']):
-            found_movies.append(m_number)
-
+            found_movies.append(m_number) 
+            
     if found_movies:
         print("\n--- Movies Found ---")
         for m_number in found_movies:
@@ -61,7 +61,7 @@ def print_movie_details(movie_number):
     print(f"Description: {movie['description']}")
     print(f"Price: ${movie['price']:.2f}")
     print("--------------------")
-
+    
 # Function to sell a movie
 def buy_movie(movie_number, copies_sold, buyer_name, buyer_gender, buyer_contact):
     # Check if the movie exists
@@ -82,7 +82,7 @@ def buy_movie(movie_number, copies_sold, buyer_name, buyer_gender, buyer_contact
             buyer_number = random.randint(1000, 9999)
             if buyer_number not in buyers:
                 break
-
+        
         buyers[buyer_number] = {
             'name': buyer_name,
             'gender': buyer_gender,
@@ -95,8 +95,8 @@ def buy_movie(movie_number, copies_sold, buyer_name, buyer_gender, buyer_contact
         receipt_number = random.randint(1000, 9999)
         if receipt_number not in sales:
             break
-
-    # Record the sale
+        
+     # Record the sale
     movie = movies[movie_number]
     total_price = movie['price'] * copies_sold
     sale_date = datetime.now().strftime('%Y-%m-%d')
@@ -110,7 +110,8 @@ def buy_movie(movie_number, copies_sold, buyer_name, buyer_gender, buyer_contact
     }
 
     print(f'Sale recorded successfully! Receipt Number: {receipt_number}, Total Price: ${total_price:.2f}')
-
+    
+    
     # Generate and display the receipt immediately
     generate_receipt(receipt_number)
 
@@ -132,7 +133,7 @@ def generate_receipt(receipt_number):
     print(f"Total Price: ${sale['total_price']:.2f}")
     print(f"Buyer Name: {buyer['name']}")
     print("----------------\n")
-
+    
 # Main menu
 def main_menu():
     while True:
@@ -156,6 +157,7 @@ def main_menu():
             except ValueError:
                 print("Invalid input! Please try again.")
                 
+              
         elif choice == '2':
             print("\n--- Search Movie ---")
             search_type = input("Search by (1) Movie Number, (2) Title, (3) Actors, (4) Genre, (5) Release Date: ")
@@ -176,7 +178,7 @@ def main_menu():
                 search_and_display_movie(release_date=release_date)
             else:
                 print("Invalid search option!")
-
+                
         elif choice == '3':
             try:
                 movie_number = int(input("Enter Movie Number: "))
@@ -184,7 +186,7 @@ def main_menu():
                 buyer_name = input("Enter Buyer Name: ")
                 buyer_gender = input("Enter Buyer Gender: ")
                 buyer_contact = input("Enter Buyer Contact: ")
-                buy_movie(movie_number, copies_sold, buyer_name, buyer_gender, buyer_contact)
+                buy_movie(movie_number, copies_bought, buyer_name, buyer_gender, buyer_contact)
             except ValueError:
                 print("Invalid input! Please try again.")
 
@@ -193,7 +195,7 @@ def main_menu():
             if confirm == 'yes':
                 print("THANK YOU FOR WORKING WITH US.")
                 break
-
+            
         else:
             print("Invalid option. Please try again.")
 
