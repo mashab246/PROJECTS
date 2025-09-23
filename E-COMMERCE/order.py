@@ -8,8 +8,10 @@ class Order:
         
         
     def calculate_total(self, discount_type = None, discount_value = 0):
+        total = 0
         
-        total = sum(item.get_total_price() for item in self.__items.values())
+        for item in self.__items.values():
+            total += item.get_total_price()
         
         if discount_type == "percentage":
             total -= total * (discount_value / 100) 
@@ -18,7 +20,9 @@ class Order:
         else:
             print("Invalid discount type")
             
-        total = max(total, 0) # Ensure total is not negative
+        # Ensure total is not negative
+        if total < 0:
+            total = 0
         
         self.total_amount = total
         return total
