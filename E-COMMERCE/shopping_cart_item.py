@@ -4,14 +4,24 @@ class Shopping_cart_item:
         self.__items = {}
         self.customer = customer
         
-    def add_item(self, product, quantity):
+    def add_item(self, product , quantity):
         if product.id in self.__items:
             self.__items[product.id]['quantity'] += quantity
             return f"Updated {product.name} quantity to {self.__items[product.id]['quantity']}."
         else:
-            new_item = Order_item(product, quantity, product.price)
-            self.__items[product.id] = new_item
-            return f"Added {product.name} to cart."
+            
+            self.__items[product.id] = {
+            'id': product.id,
+            'name': product.name,
+            'price': product.price,
+            'quantity': quantity
+        }
+        return f"Added {product.name} to cart."
+    
+        
+    @property
+    def items(self):
+        return self.__items
     
     def remove_item(self, product_id,):
         if product_id in self.__items:

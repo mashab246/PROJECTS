@@ -1,8 +1,8 @@
 class Order_item:
-    def __init__(self, product, quantity, rate):
+    def __init__(self, product, quantity, price):
         self.__product = product
         self.__quantity = quantity
-        self.rate = rate
+        self.price = price
         
     @property
     def product(self):

@@ -35,11 +35,11 @@ class Product:
             return f"Stock increased by {quantity}. New stock: {self.stock_quantity}."
         elif operation == "subtract":
             if quantity > self.stock_quantity:
-                return f"Error: Insufficient stock to subtract the requested quantity. Current stock: {self.stock_quantity}."
+                print(f"Error: Insufficient stock to subtract the requested quantity. Current stock: {self.stock_quantity}.")
             self.stock_quantity -= quantity
             return f"Stock decreased by {quantity}. New stock: {self.stock_quantity}."
         else:
-            return "Error: Invalid operation. Use 'add' or 'subtract'."
+            print("Error: Invalid operation. Use 'add' or 'subtract'.")
         
         
     def __str__(self):
