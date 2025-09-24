@@ -15,16 +15,16 @@ cart_item = Shopping_cart_item(c1)
 cart_item.add_item(p1, 3)
 cart_item.add_item(p2, 2)
 
-Product.update_stock(p1, 3, 'subtract')
-Product.update_stock(p2, 2, 'subtract')
+Product.update_available_stock(p1, 3, 'subtract')
+Product.update_available_stock(p2, 2, 'subtract')
 
 cart_item.add_item(p2, 4)
-Product.update_stock(p2, 4, 'subtract')
+Product.update_available_stock(p2, 4, 'subtract')
 
 
 
 cart_item.add_item(p2, 6)
-Product.update_stock(p2, 6, 'subtrat')
+Product.update_available_stock(p2, 6, 'subtract')
 
 
 

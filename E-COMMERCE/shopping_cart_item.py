@@ -1,4 +1,3 @@
-from  order_item import Order_item
 class Shopping_cart_item:
     def __init__(self, customer):
         self.__items = {}

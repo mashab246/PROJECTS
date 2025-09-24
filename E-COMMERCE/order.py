@@ -4,7 +4,6 @@ class Order:
         self.customer = customer
         self.status = status
         self.total_amount = total_amount
-        self.__items = {}
         
         
     def calculate_total(self, discount_type = None, discount_value = 0):
