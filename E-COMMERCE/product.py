@@ -33,18 +33,6 @@ class Product:
             "category" : self.category
         }
         return details
-    
-    def update_available_stock(self, quantity,operation):
-        if operation == "add":
-            self.__available_stock += quantity
-            return f"Stock increased by {quantity}. New stock: {self.__available_stock}."
-        elif operation == "subtract":
-            if quantity > self.__available_stock:
-                print(f"Error: Insufficient stock to subtract the requested quantity. Current stock: {self.__available_stock}.")
-            self.__available_stock -= quantity
-            return f"Stock decreased by {quantity}. New stock: {self.__available_stock}."
-        else:
-            print("Error: Invalid operation. Use 'add' or 'subtract'.")
         
         
     def __str__(self):
