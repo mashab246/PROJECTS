@@ -1,3 +1,5 @@
+from product import Product
+
 class Shopping_cart_item:
     def __init__(self, customer):
         self.__items = {}
@@ -5,17 +7,17 @@ class Shopping_cart_item:
         
     def add_item(self, product , quantity):
         if product.id in self.__items:
-            self.__items[product.id]['quantity'] += quantity
-            return f"Updated {product.name} quantity to {self.__items[product.id]['quantity']}."
+            self.__items[Product.id]['quantity'] += quantity
+            return f"Updated {Product.name} quantity to {self.__items[product.id]['quantity']}."
         else:
             
-            self.__items[product.id] = {
-            'id': product.id,
-            'name': product.name,
-            'price': product.price,
+            self.__items[Product.id] = {
+            'id': Product.id,
+            'name': Product.name,
+            'price': Product.price,
             'quantity': quantity
         }
-        return f"Added {product.name} to cart."
+        return f"Added {Product.name} to cart."
     
         
     @property
