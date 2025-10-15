@@ -30,9 +30,3 @@ Product.update_available_stock(p2, 6, 'subtract')
 
 
 
-# total = cart_item.calculate_total() 
-# print(f"Total cart amount: {total}")
-
-
-
-
