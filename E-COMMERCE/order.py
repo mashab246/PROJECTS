@@ -9,9 +9,6 @@ class Order:
     def calculate_total(self, discount_type = None, discount_value = 0):
         total = 0
         
-        for item in self.__items.values():
-            total += item.get_total_price()
-        
         if discount_type == "percentage":
             total -= total * (discount_value / 100) 
         elif discount_type == "fixed":

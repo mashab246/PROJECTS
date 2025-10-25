@@ -1,3 +1,5 @@
+from shopping_cart_item import Shopping_cart_item
+
 class Customer:
     def __init__(self, first_name, last_name, email, contact, address):
         self.__id = self.set_id(id)
@@ -6,6 +8,8 @@ class Customer:
         self.email = email
         self.contact = contact
         self.address = address
+        self.cart = Shopping_cart_item()
+        
         
     def set_id(self, id):
         self.__id = id
@@ -13,6 +17,12 @@ class Customer:
     @property
     def id(self):
         return self.__id
+    
+    def add_to_cart(self, product, quantity):
+        return self.cart.add_item(product, quantity)
+    
+    def remove_from_cart(self, product_id):
+        return self.cart.remove_item(product_id)
         
     def update_info(self, new_first_name, new_last_name, new_email, new_contact, new_address):
         self.first_name = new_first_name
