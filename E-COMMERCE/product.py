@@ -1,5 +1,7 @@
+from category import Category
+
 class Product:
-    def __init__(self, name, description, price, available_stock, brand, vendor, category):
+    def __init__(self, name, description, price, available_stock, brand, vendor, category:Category):
         self.__id = self.set_id(id)
         self.name = name
         self.description = description
@@ -36,7 +38,7 @@ class Product:
         
         
     def __str__(self):
-        return f"Product(ID:{self.id}, Name: {self.name}, Price: {self.price})"
+        return f"Product(ID:{self.id}, Name: {self.name}, Price: {self.price}, Vendor : {self.vendor.name})"
 
 
 class Electronics(Product):

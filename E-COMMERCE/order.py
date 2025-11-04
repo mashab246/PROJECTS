@@ -1,9 +1,9 @@
 class Order:
-    def __init__(self, order_no, customer, status, total_amount):
+    def __init__(self, order_no, customer, status):
         self.order_no = order_no
         self.customer = customer
         self.status = status
-        self.total_amount = total_amount
+        self.total_amount = 0
         
         
     def calculate_total(self, discount_type = None, discount_value = 0):
