@@ -17,7 +17,9 @@ class EnergyConsumer:
     def get_consumption(self):
         if self.is_active:
             return self.power_consumption
+            
         else:
             return 0.0
+           
 
 

@@ -1,6 +1,8 @@
+from product import Product
+
 class Order_item:
-    def __init__(self, product, quantity, price, order, amount):
-        self.product = product
+    def __init__(self, quantity, price, order, amount):
+        self.product = Product()
         self.quantity = quantity
         self.price = price
         self.order = order
@@ -11,8 +13,7 @@ class Order_item:
         return self.__amount
     
     
-    def calculate_amount(self, amount):
-        amount = self.price * self.quantity
-        self.__amount = amount
+    def calculate_amount(self):
+        self.__amount = self.price * self.quantity
         
-        return amount
+        return self.__amount

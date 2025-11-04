@@ -10,15 +10,17 @@ class Appliance(EnergyConsumer):
     def start_cycle(self, cycle_name):
         if cycle_name in self.available_cycles:
             self.current_cycle = cycle_name
-            self.status = "running"
             self.activate()
+            self.status = "running"
+            
             print(f"Starting {self.current_cycle} cycle on {self.name}.")
         else:
             print(f"Error: Cycle {cycle_name} not available for cycle.")
             
     def stop_cycle(self):
         if self.status == "running":
-            self.status = "stopped"
             self.deactivate()
+            self.status = "stopped"
+            
             print(f"{self.name} cycle stopped.")
             

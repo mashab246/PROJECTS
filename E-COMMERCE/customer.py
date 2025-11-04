@@ -1,18 +1,17 @@
-from shopping_cart_item import Shopping_cart_item
-
 class Customer:
-    def __init__(self, first_name, last_name, email, contact, address):
+    def __init__(self, first_name, last_name, email, contact, address, cart):
         self.__id = self.set_id(id)
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
         self.contact = contact
         self.address = address
-        self.cart = Shopping_cart_item()
+        self.cart = cart
         
         
     def set_id(self, id):
         self.__id = id
+        return self.__id
         
     @property
     def id(self):

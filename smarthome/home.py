@@ -4,7 +4,7 @@ class Home:
     def __init__(self, solar_capacity):
         self.solar_system = SolarSystem(capacity=solar_capacity)
         self.device = {}
-        self.total_consumption_wats = 0.0
+        self.total_consumption_watts = 0.0
         self.total_grid_import_kwh = 0.0
         self.total_solar_usage_kwh = 0.0
         
