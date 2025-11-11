@@ -2,7 +2,7 @@ from category import Category
 
 class Product:
     def __init__(self, name, description, price, available_stock, brand, vendor, category:Category):
-        self.__id = self.set_id(id)
+        self.__id = ""
         self.name = name
         self.description = description
         self.price = price
@@ -14,6 +14,8 @@ class Product:
     def set_id(self, id):
         self.__id = id
         
+        return self.__id
+        
     @property
     def id(self):
         return self.__id
@@ -21,6 +23,11 @@ class Product:
     @property
     def available_stock(self):
         return self.__available_stock
+    
+    def update_available_stock(self, quantity_added):
+        self.__available_stock += quantity_added
+        return self.__available_stock
+        
     
     
     def get_details(self):

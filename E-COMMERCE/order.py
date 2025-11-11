@@ -5,6 +5,24 @@ class Order:
         self.status = status
         self.total_amount = 0
         
+        self.items = []  # List of (product, quantity) 
+
+    def add_item(self, product, quantity):
+        
+        # Adds a product to the order and checks stock availability.
+        
+        if quantity > product.available_stock:
+            return f"Sorry, only {product.available_stock} units of '{product.name}' are available."
+        
+        self.items.append((product, quantity))
+        return f"Added {quantity} x '{product.name}' to order. ({product.available_stock} units in stock)"
+
+    def view_available_stock(self, product):
+        
+        # Lets the customer see how much stock is available for a specific product.
+        
+        return f"Product '{product.name}' currently has {product.available_stock} units in stock."
+        
         
     def calculate_total(self, discount_type = None, discount_value = 0):
         total = 0

@@ -3,13 +3,15 @@ class Vendor:
         self.name = name
         self.contact = contact
         self.address = address
-        self.__id = self.set_id(id)
+        self.__id = ""
            
     def __str__(self):
         return f"Vendor Name: {self.name}, Contact: {self.contact}, Address: {self.address}"
     
     def set_id(self, id):
         self.__id = id
+        
+        return self.__id
     
     @property
     def id(self):

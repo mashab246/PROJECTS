@@ -7,6 +7,8 @@ class Category:
     def set_id(self, id):
         self.__id = id
         
+        return self.__id
+        
     @property
     def id(self):   
         return self.__id

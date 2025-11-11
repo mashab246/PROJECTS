@@ -9,11 +9,12 @@ vendor_1 = Vendor('ADNAN', '0753194495', 'makindye')
 
 p1 = Product('date', 'eats', 2000, 5, 'kiiki', vendor_1, 'fruit')
 p1.set_id('100')
-print(p1.__str__())
+print(p1.id)
+# print(p1.__str__())
 
-order_1 = Order('100', 'Musa', 'Processing')
+# order_1 = Order('100', 'Musa', 'Processing')
 
-order_item_1 = Order_item(2, order_1, p1)
+# order_item_1 = Order_item(2, order_1, p1)
 
 # print(order_item_1.__str__())
 
