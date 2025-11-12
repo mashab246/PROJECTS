@@ -28,7 +28,7 @@ class Shopping_cart_item:
             message = f"Added {product.name} to cart."
         
         self.updated_at = datetime.now()
-        return message
+        return f"{message} on {self.updated_at}"
 
     @property
     def items(self):

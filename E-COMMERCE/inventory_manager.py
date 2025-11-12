@@ -2,14 +2,10 @@ class InventoryManager:
     def __init__(self):
         self.products_stock = {}
 
-    def add_product(self, product, stock):
-        self.products_stock[product.id] = {"product": product, "stock": stock}
+    def add_product(self, product, stock, name):
+        self.products_stock[product.id] = {"product": product, "stock": stock, "name": name}
         
-        # Sync the Product's available stock to match the inventory
-        # Adjust only if there’s a difference
-        stock_difference = stock - product.available_stock
-        if stock_difference != 0:
-            product.update_available_stock(stock_difference)
+       
 
         return f"Product '{product.name}' added to inventory with {stock} units."
 
@@ -17,6 +13,12 @@ class InventoryManager:
         if product_id not in self.products_stock:
             return f"Error: Product with ID {product_id} not found in inventory."
 
+        # Sync the Product's available stock to match the inventory
+        # Adjust only if there’s a difference
+        # stock_difference = stock - product.available_stock
+        
+        # if stock_difference != 0:
+        #     product.update_available_stock(stock_difference)
         
         product_entry = self.products_stock[product_id]
         product = product_entry["product"]
@@ -44,5 +46,5 @@ class InventoryManager:
 
     def get_stock(self, product_id):
         if product_id in self.products_stock:
-            return self.products_stock[product_id]["stock"]
+            return f"Product {self.products_stock[product_id]["name"]} has quantity of {self.products_stock[product_id]["stock"]}"
         return f"Error: Product with ID {product_id} not found in inventory."
