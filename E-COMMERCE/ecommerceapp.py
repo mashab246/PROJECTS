@@ -36,13 +36,18 @@ class ECommerceApp:
 
         tk.Label(top_frame, text="Search Product:", bg="#f9f9f9", font=("Arial", 12)).pack(side=tk.LEFT, padx=5)
         self.search_entry = tk.Entry(top_frame, width=40, font=("Arial", 12))
+        
         self.search_entry.pack(side=tk.LEFT, padx=5)
+        
         tk.Button(top_frame, text="Search", command=self.search_product,
                   bg="#0078D4", fg="white", font=("Arial", 11, "bold")).pack(side=tk.LEFT, padx=5)
+        
         tk.Button(top_frame, text="Show All", command=self.show_all_products,
                   bg="#666", fg="white", font=("Arial", 11, "bold")).pack(side=tk.LEFT, padx=5)
+        
         tk.Button(top_frame, text="🛒 View Cart", command=self.show_cart_window,
                   bg="#00A36C", fg="white", font=("Arial", 12, "bold")).pack(side=tk.LEFT, padx=10)
+        
         tk.Button(top_frame, text="📦 View Orders", command=self.show_orders_window,
                   bg="#FFB100", fg="white", font=("Arial", 12, "bold")).pack(side=tk.LEFT, padx=10)
 
@@ -223,21 +228,44 @@ class ECommerceApp:
         for col in columns:
             cart_table.heading(col, text=col)
             cart_table.column(col, anchor=tk.CENTER, width=150)
+            
+        total_label = tk.Label(cart_window, text=f"Total: ${self.cart.calculate_total():.2f}",
+                                font=("Arial", 14, "bold"), bg="#ffffff", fg="#333")
+        total_label.pack(pady=5)
+            
+        def refresh_cart():
+            cart_table.delete(*cart_table.get_children())
+            total = 0
+            for entry in self.cart.items.values():
+                product = entry["product"]
+                quantity = entry["quantity"]
+                subtotal = product.price * quantity
+                total += subtotal
+                cart_table.insert("", "end", values=(product.name, f"${product.price:.2f}", quantity, f"${subtotal:.2f}"))
+            total_label.config(text=f"Total: ${total:.2f}")
 
-        total = 0
-        for entry in self.cart.items.values():
-            product = entry["product"]
-            quantity = entry["quantity"]
-            subtotal = product.price * quantity
-            total += subtotal
-            cart_table.insert("", "end", values=(product.name, f"${product.price:.2f}", quantity, f"${subtotal:.2f}"))
-
-        tk.Label(cart_window, text=f"Total: ${total:.2f}",
-                 font=("Arial", 14, "bold"), bg="#ffffff", fg="#333").pack(pady=5)
+           
 
         button_frame = tk.Frame(cart_window, bg="#ffffff")
         button_frame.pack(pady=10)
+        
+        def remove_selected():
+            selected = cart_table.focus()
+            if not selected:
+                messagebox.showwarning("Select Item", "Please select an item to remove.")
+                return
 
+            values = cart_table.item(selected, "values")
+            product_name = values[0]
+
+            # Find matching product in cart and remove it
+            for pid, entry in list(self.cart.items.items()):
+                if entry["product"].name == product_name:
+                    self.cart.remove_item(pid)
+                    messagebox.showinfo("Removed", f"Removed {product_name} from cart.")
+                    refresh_cart
+                    break
+                
         def checkout():
             if not self.cart.items:
                 messagebox.showwarning("Empty Cart", "Your cart is empty.")
@@ -262,11 +290,16 @@ class ECommerceApp:
             self.load_products()
             messagebox.showinfo("Checkout Complete", f"Order {order_no} placed successfully!\nTotal: ${total_cost:.2f}")
             cart_window.destroy()
-
+            
+        tk.Button(button_frame, text="Remove Selected", command=remove_selected,
+              bg="#FF5C5C", fg="white", font=("Arial", 11, "bold")).pack(side=tk.LEFT, padx=10)
+        
         tk.Button(button_frame, text="Checkout", command=checkout,
-                  bg="#00A36C", fg="white", font=("Arial", 11, "bold")).pack(side=tk.LEFT, padx=10)
+                bg="#00A36C", fg="white", font=("Arial", 11, "bold")).pack(side=tk.LEFT, padx=10)
         tk.Button(button_frame, text="Close", command=cart_window.destroy,
-                  bg="#999", fg="white", font=("Arial", 10, "bold")).pack(side=tk.LEFT, padx=10)
+                bg="#999", fg="white", font=("Arial", 10, "bold")).pack(side=tk.LEFT, padx=10)
+        
+        refresh_cart()
 
     # ---------------------------------------------------------
     # Orders Window
@@ -302,7 +335,7 @@ if __name__ == "__main__":
     category2 = Category("Clothing", "cloth products")
 
     inventory = InventoryManager()
-    cart = Shopping_cart_item(customer="John Doe")
+    cart = Shopping_cart_item(customer="Musa Adnan")
 
     p1 = Product("Laptop", "High-end gaming laptop.", 1200, 10, "Asus", "VendorX", category1)
     p1.set_id("P001")
