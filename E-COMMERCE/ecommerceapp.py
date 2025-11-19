@@ -11,7 +11,7 @@ from order import Order
 class ECommerceApp:
     def __init__(self, window, inventory_manager, cart):
         self.window = window
-        self.window.title("🛍️ Customer E-Commerce Portal")
+        self.window.title("🛍️  Customer E-Commerce Portal") 
         self.window.geometry("950x600")
         self.window.configure(bg="#f9f9f9")
 
@@ -24,7 +24,7 @@ class ECommerceApp:
         header_frame.pack(fill=tk.X)
         tk.Label(
             header_frame,
-            text=f"🛍️ Welcome to the E-Commerce Portal, {self.cart.customer}!",
+            text=f"🛍️ Welcome to the E-Commerce Shop, {self.cart.customer}!",
             bg="#0078D4",
             fg="white",
             font=("Arial", 18, "bold")
@@ -171,24 +171,33 @@ class ECommerceApp:
         detail_window.geometry("400x400")
         detail_window.configure(bg="#ffffff")
 
-        tk.Label(detail_window, text=product.name, font=("Arial", 16, "bold"),
-                 bg="#ffffff", fg="#0078D4").pack(pady=10)
+        tk.Label(detail_window, text=product.name, font=("Arial", 16, "bold"), bg="#ffffff", fg="#0078D4").pack(pady=10)
+        
         tk.Label(detail_window, text=f"Product ID: {product.id}", bg="#ffffff", font=("Arial", 11)).pack(pady=2)
+        
         tk.Label(detail_window, text=f"Brand: {product.brand}", bg="#ffffff", font=("Arial", 11)).pack(pady=2)
-        tk.Label(detail_window, text=f"Category: {getattr(product.category, 'name', product.category)}",
-                 bg="#ffffff", font=("Arial", 11)).pack(pady=2)
+        
+        tk.Label(detail_window, text=f"Category: {getattr(product.category, 'name', product.category)}", bg="#ffffff", font=("Arial", 11)).pack(pady=2)
+        
         tk.Label(detail_window, text=f"Price: ${product.price:.2f}", bg="#ffffff", font=("Arial", 11)).pack(pady=2)
+        
         tk.Label(detail_window, text=f"Available Stock: {stock}", bg="#ffffff", font=("Arial", 11)).pack(pady=2)
 
         tk.Label(detail_window, text="Description:", bg="#ffffff", font=("Arial", 12, "bold")).pack(pady=(10, 0))
+        
         desc_box = tk.Text(detail_window, wrap=tk.WORD, height=5, width=45, bg="#f5f5f5", font=("Arial", 10))
+        
         desc_box.insert(tk.END, product.description)
+        
         desc_box.config(state=tk.DISABLED)
+        
         desc_box.pack(pady=5)
 
         qty_frame = tk.Frame(detail_window, bg="#ffffff")
         qty_frame.pack(pady=10)
+        
         tk.Label(qty_frame, text="Quantity:", bg="#ffffff", font=("Arial", 11)).pack(side=tk.LEFT, padx=5)
+        
         qty_var = tk.IntVar(value=1)
         tk.Entry(qty_frame, textvariable=qty_var, width=5, font=("Arial", 11)).pack(side=tk.LEFT)
 
@@ -206,6 +215,7 @@ class ECommerceApp:
 
         tk.Button(detail_window, text="Add to Cart", command=add_to_cart,
                   bg="#0078D4", fg="white", font=("Arial", 11, "bold")).pack(pady=10)
+        
         tk.Button(detail_window, text="Close", command=detail_window.destroy,
                   bg="#999", fg="white", font=("Arial", 10, "bold")).pack(pady=5)
 
@@ -335,7 +345,7 @@ if __name__ == "__main__":
     category2 = Category("Clothing", "cloth products")
 
     inventory = InventoryManager()
-    cart = Shopping_cart_item(customer="Musa Adnan")
+    cart = Shopping_cart_item(customer="Musa Adnan Rahmah")
 
     p1 = Product("Laptop", "High-end gaming laptop.", 1200, 10, "Asus", "VendorX", category1)
     p1.set_id("P001")
