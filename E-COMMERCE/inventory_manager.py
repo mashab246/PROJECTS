@@ -2,8 +2,8 @@ class InventoryManager:
     def __init__(self):
         self.products_stock = {}
 
-    def add_product(self, product, stock, name):
-        self.products_stock[product.id] = {"product": product, "stock": stock, "name": name}
+    def add_product(self, product, stock):
+        self.products_stock[product.id] = {"product": product, "stock": stock}
         
        
 
@@ -48,3 +48,7 @@ class InventoryManager:
         if product_id in self.products_stock:
             return f"Product {self.products_stock[product_id]["name"]} has quantity of {self.products_stock[product_id]["stock"]}"
         return f"Error: Product with ID {product_id} not found in inventory."
+    
+    def generate_product_id(self):
+            count = len(self.products_stock) + 1
+            return f"P{count:03d}"

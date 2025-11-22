@@ -1,8 +1,8 @@
 class Category:
-    def __init__(self, name, description):
+    def __init__(self, name):
         self.__id = ""
         self.name = name
-        self.decription = description
+        # self.decription = description
         
     def set_id(self, id):
         self.__id = id
