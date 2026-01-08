@@ -1,12 +1,12 @@
 from smarthome.energy_consumer import EnergyConsumer
         
 class HVAC(EnergyConsumer):
-    def __init__(self, name, power_consumption, current_temp, target_low=None, target_high=None):
-        super().__init__(name, power_consumption)
+    def __init__(self, name, rated_power_watts, current_temp, target_low, target_high):
+        super().__init__(name, rated_power_watts)
         self.current_temp = float(current_temp)
         # If targets are not provided, set reasonable defaults around current_temp
-        self.target_low = float(target_low) if target_low is not None else self.current_temp - 1.0
-        self.target_high = float(target_high) if target_high is not None else self.current_temp + 1.0
+        self.target_low = float(target_low) 
+        self.target_high = float(target_high) 
         self.mode = 'off'
         
     def set_target_temps(self, low, high):
@@ -14,30 +14,24 @@ class HVAC(EnergyConsumer):
         self.target_low = float(low)
         self.target_high = float(high)
         print(f"{self.name} target temperature range set to {self.target_low}°C - {self.target_high}°C")
-        self.check_and_run()
+        self.update_temperature()
 
-    def check_and_run(self):
-        """
-        Decide mode based on current temperature and targets.
-        If heating or cooling is required, activate and simulate a single step change (±1°C).
-        Otherwise deactivate.
-        """
+    def update_temperature(self):
+        #check temp and adjust heating or cooling
         if self.current_temp < self.target_low:
             self.mode = "heating"
+            self.activate()
+            self.current_temp += 1
+            return(f"{self.name} is heating. Current temperature: {self.current_temp}°C")
+            
         elif self.current_temp > self.target_high:
             self.mode = "cooling"
+            self.activate()
+            self.current_temp -= 1
+            return(f"{self.name} is cooling. Current temperature: {self.current_temp}°C")
+            
         else:
             self.mode = "off"
-
-        if self.mode in ("heating", "cooling"):
-            self.activate()
-            if self.mode == "heating":
-                # Simulate heating step
-                self.current_temp += 1
-                print(f"{self.name} is heating. Current temperature: {self.current_temp}°C")
-            else:
-                # Simulate cooling step
-                self.current_temp -= 1
-                print(f"{self.name} is cooling. Current temperature: {self.current_temp}°C")
-        else:
             self.deactivate()
+            
+        print(f"{self.name} mode: {self.mode}, temperature: {self.current_temp}°C")

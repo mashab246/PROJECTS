@@ -1,25 +1,22 @@
 class EnergyConsumer:
-    def __init__(self, name, power_consumption):
+    def __init__(self, name, rated_power_watts):
         self.name = name
-        self.power_consumption = power_consumption
+        self.rated_power_watts = rated_power_watts
         self.is_active = False
         
     def activate(self):
-        if not self.is_active:
-            self.is_active = True
-            print(f"{self.name} activated, consuming {self.power_consumption}W")
+        self.is_active = True
+        return(f"{self.name} activated, consuming {self.rated_power_watts}W")
             
     def deactivate(self):
-        if self.is_active:
-            self.is_active = False
-            print(f"{self.name} deactivated, consuming 0W")
+        self.is_active = False
+        return(f"{self.name} deactivated, consuming 0W")
             
     def get_consumption(self):
         if self.is_active:
-            return self.power_consumption
+            return self.rated_power_watts
             
-        else:
-            return 0.0
+        return 0.0
            
 
 
