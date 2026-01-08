@@ -1,4 +1,4 @@
-from smarthome.energy_consumer import EnergyConsumer
+from energy_consumer import EnergyConsumer
         
 class HVAC(EnergyConsumer):
     def __init__(self, name, rated_power_watts, current_temp, target_low, target_high):
@@ -9,7 +9,7 @@ class HVAC(EnergyConsumer):
         self.target_high = float(target_high) 
         self.mode = 'off'
         
-    def set_target_temps(self, low, high):
+    def set_target_temp(self, low, high):
         """Set low/high target temps (°C) and re-evaluate operation."""
         self.target_low = float(low)
         self.target_high = float(high)

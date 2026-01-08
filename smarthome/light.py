@@ -1,4 +1,4 @@
-from smarthome.energy_consumer import EnergyConsumer
+from energy_consumer import EnergyConsumer
 
 class Light(EnergyConsumer):
     def __init__(self, name, rated_power_watts):
